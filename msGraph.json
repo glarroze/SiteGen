@@ -14,13 +14,6 @@
           "variables":{
              
           }
-       },
-       {
-          "url":"http://localhost:5000",
-          "description":"",
-          "variables":{
-             
-          }
        }
     ],
     "info":{
