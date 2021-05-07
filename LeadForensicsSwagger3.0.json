@@ -1,0 +1,840 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Lead Forensics custom",
+    "description": "",
+    "termsOfService": "https://www.leadforensics.com/terms-of-service/",
+    "contact": {
+      "name": "Swagger API Team"
+    },
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://interact.leadforensics.com/WebApi_v2/"
+    }
+  ],
+  "paths": {
+    "/Visit/GetAllVisits": {
+      "get": {
+        "summary": "Get All visits",
+        "description": "Returns all visits made to a client site within the date range provided",
+        "operationId": "GetAllVisits",
+        "parameters": [
+          {
+            "name": "Authorization-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "ClientID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "datefrom",
+            "in": "query",
+            "description": "The date from which the businesses have visited",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "dateto",
+            "in": "query",
+            "description": "The date to which the businesses have visited",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Number of records to return in a page of results",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "pageno",
+            "in": "query",
+            "description": "The particular page of results to return",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All Visits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SiteVisits"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Visit/GetVisit": {
+      "get": {
+        "summary": "Get visit",
+        "description": "Returns a single visit",
+        "operationId": "GetVisit",
+        "parameters": [
+          {
+            "name": "Authorization-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "ClientID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "visitid",
+            "in": "query",
+            "description": "the visit ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "Int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single visit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Visit/GetVisitDetails": {
+      "get": {
+        "summary": "Get visit details",
+        "description": "Returns a visit details",
+        "operationId": "GetVisitDetails",
+        "parameters": [
+          {
+            "name": "Authorization-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "ClientID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "visitid",
+            "in": "query",
+            "description": "the visit ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "Int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single visit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Business/GetBusiness/": {
+      "get": {
+        "summary": "Get Business by ID",
+        "description": "Returns a business based on its ID",
+        "operationId": "GetBusiness",
+        "parameters": [
+          {
+            "name": "Authorization-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "ClientID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "businessid",
+            "in": "query",
+            "description": "the business ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "Int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single business",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Page/GetPagesByVisit": {
+      "get": {
+        "summary": "Get Pages by visit",
+        "description": "Returns the pages details for a specific visit",
+        "operationId": "GetPagesByVisit",
+        "parameters": [
+          {
+            "name": "Authorization-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "ClientID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "visitid",
+            "in": "query",
+            "description": "the visit ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "Int32"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Number of records to return in a page of results",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          {
+            "name": "pageno",
+            "in": "query",
+            "description": "The particular page of results to return",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the pages visited, based on a visit ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Visit": {
+        "title": "",
+        "required": [
+          "BusinessID",
+          "EndDateTime",
+          "Keywords",
+          "Multi",
+          "Pages",
+          "ReferrerLink",
+          "ReferrerName",
+          "StartDateTime",
+          "VisitID"
+        ],
+        "type": "object",
+        "properties": {
+          "BusinessID": {
+            "type": "integer"
+          },
+          "VisitID": {
+            "type": "integer"
+          },
+          "StartDateTime": {
+            "type": "string",
+            "default": ""
+          },
+          "EndDateTime": {
+            "type": "string",
+            "default": ""
+          },
+          "Keywords": {
+            "type": "string",
+            "default": ""
+          },
+          "Pages": {
+            "type": "integer"
+          },
+          "Multi": {
+            "type": "integer"
+          },
+          "ReferrerName": {
+            "type": "string",
+            "default": ""
+          },
+          "ReferrerLink": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        "description": "All visits made to a client site"
+      },
+      "VisitDetails": {
+        "required": [
+          "Assignees",
+          "Browser",
+          "Conversions",
+          "Device",
+          "Duration",
+          "OperatingSystem"
+        ],
+        "type": "object",
+        "properties": {
+          "Conversions": {
+            "title": "The Conversions schema",
+            "type": "array",
+            "items": {
+              "title": "The first anyOf schema",
+              "required": [
+                "Name"
+              ],
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "title": "The Name schema",
+                  "type": "string",
+                  "default": ""
+                }
+              },
+              "description": "An explanation about the purpose of this instance."
+            }
+          },
+          "Assignees": {
+            "title": "The Assignees schema",
+            "type": "array",
+            "items": {
+              "title": "The first anyOf schema",
+              "required": [
+                "ClientUserID",
+                "Name"
+              ],
+              "type": "object",
+              "properties": {
+                "ClientUserID": {
+                  "title": "The ClientUserID schema",
+                  "type": "string",
+                  "default": ""
+                },
+                "Name": {
+                  "title": "The Name schema",
+                  "type": "string",
+                  "default": ""
+                } 
+              }
+            }
+          },
+          "Duration": {
+            "title": "The Duration schema",
+            "type": "string",
+            "default": ""
+          },
+          "Browser": {
+            "title": "The Browser schema",
+            "type": "string",
+            "default": ""
+          },
+          "OperatingSystem": {
+            "title": "The OperatingSystem schema",
+            "type": "string",
+            "default": ""
+          },
+          "Device": {
+            "title": "The Device schema",
+            "type": "string",
+            "default": ""
+          }
+        },
+        "description": "additional details about a visit provided to the call as an identifier"
+      },
+      "Business": {
+        "title": "",
+        "required": [
+          "AddressLine1",
+          "AddressLine2",
+          "AddressLine3",
+          "BusinessID",
+          "Country",
+          "County",
+          "EmployeeNumber",
+          "HotScore",
+          "Industry",
+          "Locality",
+          "Name",
+          "PostCode",
+          "RegistrationNumber",
+          "SICCode",
+          "Telephone",
+          "Town",
+          "Turnover",
+          "VisitorType",
+          "Website"
+        ],
+        "type": "object",
+        "properties": {
+          "BusinessID": {
+            "title": "The BusinessID",
+            "type": "integer"
+          },
+          "Name": {
+            "title": "The Name",
+            "type": "string",
+            "default": ""
+          },
+          "AddressLine1": {
+            "title": "The AddressLine1",
+            "type": "string",
+            "default": ""
+          },
+          "AddressLine2": {
+            "title": "The AddressLine2",
+            "type": "string",
+            "default": ""
+          },
+          "AddressLine3": {
+            "title": "The AddressLine3",
+            "type": "string",
+            "default": ""
+          },
+          "Locality": {
+            "title": "The Locality",
+            "type": "string",
+            "default": ""
+          },
+          "Town": {
+            "title": "The Town",
+            "type": "string",
+            "default": ""
+          },
+          "County": {
+            "title": "The County",
+            "type": "string",
+            "default": ""
+          },
+          "PostCode": {
+            "title": "The PostCode",
+            "type": "string",
+            "default": ""
+          },
+          "Country": {
+            "title": "The Country",
+            "type": "string",
+            "default": ""
+          },
+          "Telephone": {
+            "title": "The Telephone",
+            "type": "string",
+            "default": ""
+          },
+          "Website": {
+            "title": "The Website",
+            "type": "string",
+            "default": ""
+          },
+          "Industry": {
+            "title": "The Industry",
+            "type": "string",
+            "default": ""
+          },
+          "SICCode": {
+            "title": "The SICCode",
+            "type": "string",
+            "default": ""
+          },
+          "Turnover": {
+            "title": "The Turnover",
+            "type": "string",
+            "default": ""
+          },
+          "RegistrationNumber": {
+            "title": "The RegistrationNumber",
+            "type": "string",
+            "default": ""
+          },
+          "EmployeeNumber": {
+            "title": "The number of emmloyees",
+            "type": "string",
+            "default": ""
+          },
+          "HotScore": {
+            "title": "The HotScore",
+            "type": "integer"
+          },
+          "VisitorType": {
+            "title": "The Visitor Type",
+            "type": "string",
+            "default": ""
+          }
+        },
+        "description": "Sales details about the visit."
+      },
+      "SiteVisits": {
+        "title": "",
+        "required": [
+          "CurrentPage",
+          "PageCount",
+          "PageSize",
+          "RecordCount",
+          "SiteVisitList"
+        ],
+        "type": "object",
+        "properties": {
+          "SiteVisitList": {
+            "title": "The SiteVisitList schema",
+            "type": "array",
+            "description": "",
+            "items": {
+              "title": "The first anyOf schema",
+              "required": [
+                "BusinessID",
+                "EndDateTime",
+                "Keywords",
+                "Multi",
+                "Pages",
+                "ReferrerLink",
+                "ReferrerName",
+                "StartDateTime",
+                "VisitID"
+              ],
+              "type": "object",
+              "properties": {
+                "BusinessID": {
+                  "type": "integer"
+                },
+                "VisitID": {
+                  "type": "integer"
+                },
+                "StartDateTime": {
+                  "type": "string",
+                  "default": ""
+                },
+                "EndDateTime": {
+                  "type": "string",
+                  "default": ""
+                },
+                "Keywords": {
+                  "type": "string",
+                  "default": ""
+                },
+                "Pages": {
+                  "type": "integer"
+                },
+                "Multi": {
+                  "type": "integer"
+                },
+                "ReferrerName": {
+                  "type": "string",
+                  "default": ""
+                },
+                "ReferrerLink": {
+                  "type": "string",
+                  "default": ""
+                }
+              },
+              "description": "An explanation about the purpose of this instance."
+            }
+          },
+          "PageSize": {
+            "type": "integer"
+          },
+          "PageCount": {
+            "type": "integer"
+          },
+          "RecordCount": {
+            "type": "integer"
+          },
+          "CurrentPage": {
+            "type": "integer"
+          }
+        },
+        "description": " all visits made to a client site"
+      },
+      "PageVisits": {
+        "required": [
+          "CurrentPage",
+          "PageCount",
+          "PageSize",
+          "PageVisitList",
+          "RecordCount"
+        ],
+        "type": "object",
+        "properties": {
+          "PageVisitList": {
+            "title": "The PageVisitList",
+            "type": "array",
+            "description": "the page information associated with the provided visit identifier",
+            "items": {
+              "title": "The first anyOf schema",
+              "required": [
+                "BusinessID",
+                "PageLocation",
+                "PageTitle",
+                "PageVisitDateTime",
+                "ReferringSite",
+                "VisitID"
+              ],
+              "type": "object",
+              "properties": {
+                "BusinessID": {
+                  "title": "The BusinessID schema",
+                  "type": "integer"
+                },
+                "VisitID": {
+                  "title": "The VisitID schema",
+                  "type": "integer"
+                },
+                "PageVisitDateTime": {
+                  "title": "The PageVisitDateTime schema",
+                  "type": "string",
+                  "default": ""
+                },
+                "PageLocation": {
+                  "title": "The PageLocation schema",
+                  "type": "string",
+                  "default": ""
+                },
+                "PageTitle": {
+                  "title": "The PageTitle schema",
+                  "type": "string",
+                  "default": ""
+                },
+                "ReferringSite": {
+                  "title": "The ReferringSite schema",
+                  "type": "string",
+                  "default": ""
+                }
+              },
+              "description": "An explanation about the purpose of this instance."
+            }
+          },
+          "PageSize": {
+            "title": "The PageSize schema",
+            "type": "integer"
+          },
+          "PageCount": {
+            "title": "The PageCount schema",
+            "type": "integer"
+          },
+          "RecordCount": {
+            "title": "The RecordCount schema",
+            "type": "integer"
+          },
+          "CurrentPage": {
+            "title": "The CurrentPage schema",
+            "type": "integer"
+          }
+        },
+        "description": "the page information associated with the provided visit identifier"
+      },
+      "ErrorModel": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
