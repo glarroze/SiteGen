@@ -1,0 +1,649 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Microsoft SharePoint REST API",
+    "description": "A collection of Postman requests for the Microsoft SharePoint REST API.",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://{{targetHost}}"
+    }
+  ],
+  "paths": {
+    "/_api/web/webinfos/add": {
+      "post": {
+        "tags": [
+          "Web"
+        ],
+        "summary": "Create web",
+        "description": "This request will create a new sub website",
+        "operationId": "createWeb",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "Url": {
+                        "type": "string",
+                        "example": "Site_Url"
+                      },
+                      "Title": {
+                        "type": "string",
+                        "example": "Site Title"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "example": "Site description"
+                      },
+                      "Language": {
+                        "type": "integer",
+                        "example": 1033
+                      },
+                      "WebTemplate": {
+                        "type": "string",
+                        "example": "STS#0"
+                      },
+                      "UseUniquePermissions": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "parameters": {
+                  "Url" : "Site URL",
+                  "Title": "My List Title",
+                  "Description": "My list description",
+                  "WebTemplate": "STS#0",
+                  "Language": 1033,
+                  "UseUniquePermissions": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Language": {
+                      "type": "integer"
+                    },
+                    "WebTemplate": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Informations de bases du site créé"
+          }
+        }
+      }
+    },
+    "/_api/web/lists": {
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Create List",
+        "description": "This request will create a new SharePoint list.",
+        "operationId": "createList",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "AllowContentTypes": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "BaseTemplate": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "ContentTypesEnabled": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "Description": {
+                    "type": "string",
+                    "example": "My list description"
+                  },
+                  "Title": {
+                    "type": "string",
+                    "example": "My List Title"
+                  }
+                }
+              },
+              "example": {
+                "AllowContentTypes": true,
+                "BaseTemplate": 100,
+                "ContentTypesEnabled": true,
+                "Description": "My list description",
+                "Title": "My List Title"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Informations de bases de la liste créée"
+          }
+        }
+      }
+    },
+    "/_api/web/lists/GetByTitle('{list_title}')/items": {
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Create New List Item (By List Title)",
+        "description": "This request will create a new item in a given SharePoint list (by referencing the list's title).",
+        "operationId": "createNewListItemByListTitle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Title": {
+                    "type": "string",
+                    "example": "Item Name"
+                  }
+                }
+              },
+              "example": {
+                "Title": "Item Name"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "list_title",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "integer"
+                    },
+                    "Title": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "retourne l'object créé"
+          }
+        }
+      }
+    },
+    "/_api/web/lists(guid'{list_guid}')": {
+      "get": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Get List (By GUID)",
+        "description": "This request will retrieve a SharePoint list using the specified list GUID. ",
+        "operationId": "getListByGuid",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "integer"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Delete List (By GUID)",
+        "description": "This request will delete a SharePoint list based on the GUID specified in the URI.",
+        "operationId": "deleteListByGuid",
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "*",
+              "example": "{etag or *}"
+            }
+          },
+          {
+            "name": "X-HTTP-Method",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "DELETE",
+              "example": "DELETE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "No object returned if OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "list_guid",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/_api/web/lists(guid'{list_guid}')/items": {
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Create New List Item (By List GUID)",
+        "description": "This request will create a new item in a given SharePoint list using the specified list's GUID. Replace \"{list_guid}\" in the URL with your own SharePoint list GUID.",
+        "operationId": "createNewListItemByListGuid",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Title": {
+                    "type": "string",
+                    "example": "Item Name"
+                  }
+                }
+              },
+              "example": {
+                "Title": "Item Name"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "integer"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Modified": {
+                      "type": "string"
+                    },
+                    "AuthorId": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "list_guid",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/_api/web/lists(guid'{list_guid}')/items({item_id})": {
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Delete List Item (By List GUID)",
+        "description": "This request will delete a specified item in a given SharePoint list using the specified list's GUID and the specified item's ID. Replace \"{list_guid}\" in the URL with your own SharePoint list GUID, and \"{item_id}\" with your own item ID.",
+        "operationId": "deleteListItemByListGuid",
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "*",
+              "example": "{etag or *}"
+            }
+          },
+          {
+            "name": "X-HTTP-Method",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "DELETE",
+              "example": "DELETE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "list_guid",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/_api/web/lists/GetByTitle('{list_title}')/items({item_id})": {
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Delete List Item (By List Title)",
+        "description": "This request will delete a specified item in a given SharePoint list using the specified list's GUID and the specified item's ID.",
+        "operationId": "deleteListItemByListTitle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "__metadata": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "{{ListItemEntityTypeFullName}}"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "__metadata": {
+                  "type": "{{ListItemEntityTypeFullName}}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "list_title",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "If-Match",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "*",
+            "example": "{etag or *}"
+          }
+        },
+        {
+          "name": "X-HTTP-Method",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "default": "DELETE",
+            "example": "DELETE"
+          }
+        }
+      ]
+    },
+    "/_api/web/lists/GetByTitle('{list_title}')/items({item_id})": {
+      "get": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Get List Item (By list title)",
+        "description": "This request will retrieve a given list item by the id of the item. Replace 'Test list' with your own SharePoint list name, and replace '1' with the id of the item you are trying to retrieve.",
+        "operationId": "getListItem",
+        "parameters": [
+          {
+            "name": "list_title",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "integer"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Created": {
+                      "type": "string"
+                    },
+                    "Modified": {
+                      "type": "string"
+                    },
+                    "AuthorId": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "description": "L'élément n'existe pas. Il a peut-être été supprimé par un autre utilisateur."
+          }
+        }
+      }
+    },
+    "/_api/web/lists/GetByTitle('{list_title}')": {
+      "get": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Get List (By Title)",
+        "description": "This request will retrieve a SharePoint list using the specified list title. Replace \"{list_title}\" with your own SharePoint list title.",
+        "operationId": "getListByTitle",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "integer"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lists"
+        ],
+        "summary": "Delete List (By Title)",
+        "description": "This request will delete a SharePoint list based on the title specified in the URI. Replace the \"{list_title}\" value in the URI with your chosen SharePoint list title.",
+        "operationId": "deleteListByTitle",
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "*",
+              "example": "{etag or *}"
+            }
+          },
+          {
+            "name": "X-HTTP-Method",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "DELETE",
+              "example": "DELETE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "list_title",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Application"
+    },
+    {
+      "name": "Lists"
+    }
+  ]
+}
